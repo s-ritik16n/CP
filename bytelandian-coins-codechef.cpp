@@ -17,7 +17,7 @@ unsigned long long change(unsigned long long a) {
 
 int main() {
   unsigned long long num = 0;
-  while (scanf("%llu", &num) != 0) {
+  while (scanf("%llu", &num) > 0) {
     /* code */
     cout << change(num) << endl;
   }
