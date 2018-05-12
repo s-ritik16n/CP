@@ -1,34 +1,25 @@
 #include<iostream>
 #include <math.h>
-#include <stack>
 using namespace std;
+int stored_arr[1000000] = {0};
 
-int change(int a) {
-  return ceil(a/2) + ceil(a/3) + ceil(a/4);
+unsigned long long change(unsigned long long a) {
+  if(a < 100000){
+    if (stored_arr[a] != 0) {
+      /* code */
+      return stored_arr[a];
+    } else if(a < 12) return a;
+  }
+  unsigned long long result = change(a/2) + change(a/3) + change(a/4);
+  stored_arr[a] = max(a, result);
+  return stored_arr[a];
 }
 
-int main(int argc, char const *argv[]) {
-  int t;
-  cin>>t;
-  while (t--) {
+int main() {
+  unsigned long long num = 0;
+  while (scanf("%llu", &num) != 0) {
     /* code */
-    int n;
-    int sum = n;
-    stack<int> s;
-
-    std::cin >> n;
-    s.push(n);
-    while(s.size() > 0) {
-      int first = s.top();
-      s.pop();
-      if(sum - first + change(first) > sum) {
-        sum -= first + change(first);
-        s.push(ceil(first/2));
-        s.push(ceil(first/3));
-        s.push(ceil(first/4));
-      }
-    }
-    std::cout << sum << '\n';
+    std::cout << change(num);
   }
   return 0;
 }
