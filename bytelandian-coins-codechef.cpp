@@ -1,25 +1,25 @@
 #include<iostream>
-#include <math.h>
+#include <map>
+#include <iterator>
+#include <utility>
+
 using namespace std;
-int stored_arr[1000000] = {0};
+map <unsigned long long, unsigned long long> dp;
 
 unsigned long long change(unsigned long long a) {
-  if(a < 100000){
-    if (stored_arr[a] != 0) {
-      /* code */
-      return stored_arr[a];
-    } else if(a < 12) return a;
-  }
+  if (dp[a] > 0) {
+    return dp[a];
+  } else if (a < 12) return a;
   unsigned long long result = change(a/2) + change(a/3) + change(a/4);
-  stored_arr[a] = max(a, result);
-  return stored_arr[a];
+  dp[a] = max(a, result);
+  return dp[a];
 }
 
 int main() {
   unsigned long long num = 0;
   while (scanf("%llu", &num) != 0) {
     /* code */
-    std::cout << change(num);
+    cout << change(num) << endl;
   }
   return 0;
 }
