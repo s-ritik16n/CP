@@ -16,7 +16,6 @@ string checkifAll9s(string str) {
   bool all9s = true;
   for (int i = 0; i < str.length(); i++) {
     if (str[i] != '9') {
-      /* code */
       all9s = false;
       return str;
     }
@@ -38,10 +37,10 @@ int main(int argc, char const *argv[]) {
     int length = str.length();
     while (index > i) {
       if (str[index] > str[length - index - 1]) {
-        str[index - 1] = (char)((int)str[index-1] - 47)+48;
-        str[index] = (char)((int)str[length - index - 1]-48)+48;
-      } else if(str[index] < str[length - index - 1]) str[index] = (char)((int)str[length - index - 1]-48)+48;
-      else if(str[index] == str[length - index - 1]) str[index - 1] = (char)((int)str[index-1] - 47)+48;
+        str[index - 1] = (char)((int)str[index-1] - 47)+48; // +1
+        str[index] = str[length - index - 1];
+      } else if(str[index] < str[length - index - 1]) str[index] = str[length - index - 1];
+      else if(str[index] == str[length - index - 1]) str[index - 1] = (char)((int)str[index-1] - 47)+48; // +1
       index--;
     }
     cout << str << endl;
