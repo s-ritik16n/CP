@@ -2,73 +2,58 @@
 
 #include <iostream>
 #include <string>
-#include <algorithm>
 using namespace std;
-
-bool checkifpallindrome(string str) {
-  string rev = str;
-  reverse(rev.begin(), rev.end());
-  return str.compare(rev) == 0;
-}
-
-string checkifAll9s(string str) {
-  bool all9s = true;
-  for (int i = 0; i < str.length(); i++) {
-    if (str[i] != '9') {
-      all9s = false;
-      return str;
-    }
-  }
-  for (int i = 0; i < str.length(); i++) str[i] = '0';
-  str.insert(0,"1");
-  return str;
-}
-
-string increment(int index, string str) {
-  if (((int)str[index - 1]-48) == 9) {
-    if (index - 1 == 0) {
-      str.insert(0, "1");
-      /* code */
-    }
-    str = increment(index - 1, str);
-    return str;
-  }
-  str[index - 1] = (char)(((int)str[index-1] - 47) + 48);
-  return str;
-}
 
 int main(int argc, char const *argv[]) {
   int t;
-  scanf("%d", &t);
+  cin >> t;
   while (t--) {
-
-    string str;
-    cin >> str;
-    string original = str;
-    str = checkifAll9s(str);
-
-    int i = str.length() % 2 == 0 ? str.length()/2 - 1 : str.length()/2;
-    int index = str.length() - 1;
-    int length = str.length();
-
-    while (index > i) {
-      if (str[index] > str[length - index - 1]) {
-        str = increment(index, str);
-        i = str.length() % 2 == 0 ? str.length()/2 - 1 : str.length()/2;
-        // str[index - 1] = (char)((int)str[index-1] - 47)+48; // +1
-        str[index] = str[length - index - 1];
-      } else if(str[index] < str[length - index - 1]) {
-        str[index] = str[length - index - 1];
+    string input;
+    cin >> input;
+    int c = 0;
+    bool greater = false;
+    if (input.length() % 2 == 0) {
+      int i = input.length() / 2 - 1;
+      int j = input.length() - (i + 1);
+      while(i >= 0) {
+        if (greater) {
+          if (c == 1) {
+            if (input[i] == '9') {
+              c = 1;
+              input[i] = '0';
+              input[j] = '0';
+            } else {
+              input[i]++;
+              input[j] = input[i];
+              c = 0;
+            }
+          } else {
+            input[j] = input[i];
+          }
+        } else {
+          if (input[i] <= input[j]) {
+            if (input[i] == '9') {
+              c = 1;
+              input[i] = '0';
+              input[j] = '0';
+            } else {
+              cout << "f" << endl;
+              c = 0;
+              input[i] ++;
+            }
+          }
+          input[j] = input[i];
+          greater = true;
+        }
+        i--;
+        j = input.length()- (i + 1);
       }
-      index--;
-    }
-    if (original.compare(str) == 0) {
-      if (i%2 != 0) str[str.length()/2]++;
-      else {
-        for (int i = 0; i < str.length(); i++) str[i]++;
+      if (c == 1) {
+        input.insert(0, "1");
+        input[input.length() - 1] = '1';
       }
     }
-    cout << str << endl;
+    cout << input;
   }
   return 0;
 }
