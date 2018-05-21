@@ -12,9 +12,10 @@ int main(int argc, char const *argv[]) {
     cin >> input;
     int c = 0;
     bool greater = false;
+    int i = input.length() / 2 - 1;
+    int j = input.length() - (i + 1);
+
     if (input.length() % 2 == 0) {
-      int i = input.length() / 2 - 1;
-      int j = input.length() - (i + 1);
       while(i >= 0) {
         if (greater) {
           if (c == 1) {
@@ -37,7 +38,6 @@ int main(int argc, char const *argv[]) {
               input[i] = '0';
               input[j] = '0';
             } else {
-              cout << "f" << endl;
               c = 0;
               input[i] ++;
             }
@@ -48,12 +48,36 @@ int main(int argc, char const *argv[]) {
         i--;
         j = input.length()- (i + 1);
       }
-      if (c == 1) {
-        input.insert(0, "1");
-        input[input.length() - 1] = '1';
+
+    } else {
+      if (input[input.length()/2] == '9') {
+        input[input.length()/2] = '0';
+        c = 1;
+      } else {
+        input[input.length()/2]++;
+      }
+      while (i >= 0) {
+        if (c == 1) {
+          if (input[i] == '9') {
+            input[i] = '0';
+            input[j] = '0';
+          } else {
+            input[i]++;
+            input[j] = input[i];
+            c = 0;
+          }
+        } else {
+          input[j] = input[i];
+        }
+        i--;
+        j = input.length() - (i + 1);
       }
     }
-    cout << input;
+    if (c == 1) {
+      input.insert(0, "1");
+      input[input.length() - 1] = '1';
+    }
+    cout << input << endl;
   }
   return 0;
 }
