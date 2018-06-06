@@ -12,69 +12,94 @@ int main(int argc, char const *argv[]) {
     cin >> input;
     int c = 0;
     bool greater = false;
-    int i = input.length() / 2 - 1;
-    int j = input.length() - (i + 1);
-
+    int i, j, index;
     if (input.length() % 2 == 0) {
-      while(i >= 0) {
-        if (greater) {
-          if (c == 1) {
-            if (input[i] == '9') {
-              c = 1;
-              input[i] = '0';
-              input[j] = '0';
-            } else {
-              input[i]++;
-              input[j] = input[i];
-              c = 0;
-            }
-          } else {
-            input[j] = input[i];
-          }
-        } else {
-          if (input[i] <= input[j]) {
-            if (input[i] == '9') {
-              c = 1;
-              input[i] = '0';
-              input[j] = '0';
-            } else {
-              c = 0;
-              input[i] ++;
-            }
-          }
-          input[j] = input[i];
-          greater = true;
-        }
-        i--;
-        j = input.length()- (i + 1);
-      }
-
+      i = input.length()/2 - 1;
+      j = i + 1;
     } else {
-      if (input[input.length()/2] == '9') {
-        input[input.length()/2] = '0';
-        c = 1;
-      } else {
-        input[input.length()/2]++;
-      }
-      while (i >= 0) {
-        if (c == 1) {
-          if (input[i] == '9') {
-            input[i] = '0';
-            input[j] = '0';
-          } else {
-            input[i]++;
-            input[j] = input[i];
+      i = input.length()/2;
+      j = i;
+    }
+    index = i;
+    bool found = false;
+    if (input.length() % 2 == 0)
+    while (index >= 0) {
+      int k = input.length() - (index + 1);
+      if (input[index] == input[k]) {
+        if(c == 0) {
+          c = 1;
+        } else {
+          if (found) {
+            input[index]++;
+            input[k] = input[index];
             c = 0;
           }
-        } else {
-          input[j] = input[i];
         }
-        i--;
-        j = input.length() - (i + 1);
+        index--;
+      } else if (input[k] < input[index]) {
+        input[k] = input[index];
+        index--;
+        c = 0;
+        break;
+      } else if (input[k] > input[index]) {
+        if (c == 1) {
+          if (input[index] != '9') {
+            input[index] ++;
+            input[k] = input[index];
+            c = 0;
+            index--;
+            break;
+          } else {
+            input[index] = '0';
+            input[k] = input[index];
+            index = i;
+            found = true;
+            c = 1;
+            continue;
+          }
+        }
+        if (input[index] != '9') {
+          input[index]++;
+          input[k] = input[index];
+          index--;
+          c = 0;
+          break;
+        }
       }
     }
-    if (c == 1) {
+    else {
+      index--;
+      while (index >= 0) {
+        int k = input.length()- (index + 1);
+        if (input[index] > input[k]) {
+          input[k] = input[index];
+          index--;
+          c = 0;
+          break;
+        } else if (input[index] < input[k]) {
+          if (input[i] != '9') {
+            input[i]++;
+            c = 0;
+            break;
+          } else {
+
+          }
+        } else {
+
+        }
+      }
+    }
+    if (c == 0) {
+      while (index >= 0) {
+        int j = input.length() - (index + 1);
+        input[j] = input[index--];
+      }
+    } else {
       input.insert(0, "1");
+      int i = 1;
+      while(i < input.length()) {
+        input[i++] = '0';
+      }
       input[input.length() - 1] = '1';
     }
     cout << input << endl;
