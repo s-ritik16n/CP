@@ -1,4 +1,5 @@
 // 29-8-18
+//https://www.codechef.com/problems/FLIPCOIN
 
 #include<stdio.h>
 
