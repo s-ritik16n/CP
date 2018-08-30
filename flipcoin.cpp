@@ -1,28 +1,40 @@
+// 29-8-18
+
 #include<stdio.h>
 
 int main(){
 	int n, q;
 	scanf("%d%d", &n,&q);
-	int i,a[n];
-	for(i = 0;i < n; i++) a[i] = -1; 
-	while(q--){
-		int a, b, c, sum = 0;
-		scanf("%d%d%d", &a, &b, &c);
-		if(a == 0){
-			for(i = b; i <= c;i++) {
-				a[i] = sum+1;
-				sum += 1;
+	int a[n][2];
+	for (size_t i = 0; i < n; i++) {
+		a[i][0] = -1;
+		a[i][1] = -1;
+	}
+	while (q--) {
+		/* code */
+		int sum = 0;
+		int x, y, z;
+		scanf("%d%d%d", &x, &y, &z);
+		if (x == 1) {
+			int ans;
+			if (a[y][1] == -1) {
+				ans = a[z][1] == -1 ? 0 : a[z][1];
+			} else {
+				ans = a[y][0] == -1 ? a[z][1] - a[y][1] : a[z][1] - a[y][1] + 1;
 			}
-		}
-		else{
-			if(a[b] == -1)){
-				if(a[c] == -1){
-				
+			printf("%d\n", ans);
+		} else {
+			for (size_t i = y; i <= z; i++) {
+				/* code */
+				if (a[i][0] == -1) {
+					/* code */
+					a[i][0] = 1;
+					sum += 1;
+					a[i][1] = sum;
+				} else {
+					a[i][0] = -1;
+					a[i][1] = sum;
 				}
-				else{
-				}	
-			} else if(a[c] == -1) {
-				
 			}
 		}
 	}
