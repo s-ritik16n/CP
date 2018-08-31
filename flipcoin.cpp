@@ -2,6 +2,10 @@
 //https://www.codechef.com/problems/FLIPCOIN
 
 #include<stdio.h>
+#include<iostream>
+#include<stack>
+#include<utility>
+using namespace std;
 
 int main(){
 	int n, q;
@@ -11,32 +15,10 @@ int main(){
 		a[i][0] = -1;
 		a[i][1] = -1;
 	}
+	std::stack<std::pair<int, int>> s;
 	while (q--) {
-		/* code */
-		int sum = 0;
 		int x, y, z;
 		scanf("%d%d%d", &x, &y, &z);
-		if (x == 1) {
-			int ans;
-			if (a[y][1] == -1) {
-				ans = a[z][1] == -1 ? 0 : a[z][1];
-			} else {
-				ans = a[y][0] == -1 ? a[z][1] - a[y][1] : a[z][1] - a[y][1] + 1;
-			}
-			printf("%d\n", ans);
-		} else {
-			for (size_t i = y; i <= z; i++) {
-				/* code */
-				if (a[i][0] == -1) {
-					/* code */
-					a[i][0] = 1;
-					sum += 1;
-					a[i][1] = sum;
-				} else {
-					a[i][0] = -1;
-					a[i][1] = sum;
-				}
-			}
-		}
+		
 	}
 }
