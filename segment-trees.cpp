@@ -1,4 +1,5 @@
 // https://www.hackerearth.com/practice/data-structures/advanced-data-structures/segment-trees/tutorial/
+// https://www.youtube.com/watch?v=Oq2E2yGadnU&t=169s
 
 // building a segment tree
 // complexity -> O(N)
@@ -20,8 +21,7 @@ void update(int node, int start, int end, int idx, int val) {
     if(start == end) {
         A[idx] += val;
         tree[node] += val;
-    }
-    else {
+    } else {
         int mid = (start + end) / 2;
         if(start <= idx and idx <= mid) {
             update(2*node, start, mid, idx, val);
@@ -34,4 +34,6 @@ void update(int node, int start, int end, int idx, int val) {
 
 // querying a segment tree
 // complexity -> O(logN)
-int query()
+int query(int node, int start, int end, int idx, int val){
+
+}
