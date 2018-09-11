@@ -15,10 +15,10 @@ int main(){
     int n, count = 0;
     cin>>n;
     int b[n];
-    for (size_t i = 0; i < n; i++) cin>>b[i];
-    for (size_t i = 0; i < 1000000-1; i++) {
+    for (int i = 0; i < n; i++) cin>>b[i];
+    for (int i = 0; i < 1000000-1; i++) {
       int num = a[i];
-      for (size_t j = 0; j < n; j++) if(b[j]%num == 0) num /= b[j];
+      for (int j = 0; j < n; j++) if(b[j]%num == 0) num /= b[j];
       if (num == 1) {
         count += 1;
       }
